@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мойка фасадов и остекления промышленными альпинистами | Москва и СПб</title>
+  <style>
+    :root {
+      --primary: #1D4ED8;
+      --primary-hover: #1E40AF;
+      --accent: #059669;
+      --bg-light: #F8FAFC;
+      --bg-white: #FFFFFF;
+      --text-main: #0F172A;
+      --text-sec: #475569;
+      --border: #E2E8F0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+      --container: 1140px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-main); background: var(--bg-light); }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; background: var(--primary); color: #fff; font-weight: 600; border-radius: var(--radius); border: none; cursor: pointer; transition: 0.2s; font-size: 16px; }
+    .btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .btn-accent { background: var(--accent); }
+    .btn-accent:hover { background: #047857; }
+    .section { padding: 80px 0; }
+    h1, h2, h3 { line-height: 1.2; margin-bottom: 16px; }
+    h2 { font-size: clamp(28px, 4vw, 40px); text-align: center; margin-bottom: 40px; }
+    .text-center { text-align: center; }
+    .sub { color: var(--text-sec); font-size: 18px; margin-bottom: 32px; text-align: center; }
+    .grid { display: grid; gap: 24px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%); color: #fff; padding: 100px 0 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop') center/cover; opacity: 0.15; }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 52px); margin-bottom: 20px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 32px; }
+    .badge { background: rgba(255,255,255,0.15); padding: 6px 12px; border-radius: 20px; font-size: 14px; backdrop-filter: blur(4px); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+    .hero-mini-form { background: rgba(255,255,255,0.1); padding: 16px; border-radius: var(--radius); backdrop-filter: blur(6px); max-width: 400px; }
+    .hero-mini-form input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #fff; margin-bottom: 10px; }
+    .hero-mini-form label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+
+    /* PAINS */
+    .card { background: var(--bg-white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid var(--border); }
+    .card.bad { border-left-color: #EF4444; }
+    .card.good { border-left-color: var(--accent); }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { color: var(--text-sec); }
+
+    /* CALCULATOR */
+    .calc-box { background: var(--bg-white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 700px; margin: 0 auto; }
+    .calc-step { display: none; }
+    .calc-step.active { display: block; animation: fadeIn 0.3s ease; }
+    .calc-options { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 24px; }
+    .calc-opt { flex: 1 1 45%; padding: 14px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; text-align: center; transition: 0.2s; }
+    .calc-opt.selected { border-color: var(--primary); background: #EFF6FF; color: var(--primary); font-weight: 600; }
+    .calc-nav { display: flex; justify-content: space-between; margin-top: 20px; }
+    .calc-result { text-align: center; padding: 20px; background: #F0FDF4; border-radius: 8px; margin-bottom: 20px; }
+    .calc-result strong { font-size: 24px; color: var(--accent); }
+
+    /* TRUST */
+    .trust-list { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 32px; }
+    .trust-item { background: var(--bg-white); padding: 16px 24px; border-radius: 8px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 12px; font-weight: 500; }
+    .trust-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; }
+
+    /* PORTFOLIO */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .portfolio-item { position: relative; background: var(--bg-white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .before-after { height: 220px; display: flex; }
+    .ba-side { flex: 1; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; position: relative; }
+    .ba-side.before { background: #475569; }
+    .ba-side.after { background: #0284C7; }
+    .ba-label { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+    .portfolio-content { padding: 16px; }
+    .portfolio-content h3 { font-size: 16px; margin-bottom: 4px; }
+    .portfolio-content p { font-size: 14px; color: var(--text-sec); }
+
+    /* PROCESS */
+    .timeline { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+    .step { display: flex; gap: 16px; background: var(--bg-white); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .step-num { min-width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .step h3 { font-size: 18px; margin-bottom: 4px; }
+
+    /* ADVANTAGES */
+    .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .adv-card { background: var(--bg-white); padding: 20px; border-radius: 8px; text-align: center; border: 1px solid var(--border); }
+    .adv-card strong { display: block; font-size: 20px; margin: 8px 0 4px; color: var(--primary); }
+    .adv-card p { color: var(--text-sec); font-size: 14px; }
+
+    /* REVIEWS */
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .review-card { background: var(--bg-white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border-top: 4px solid var(--primary); }
+    .review-card p { font-style: italic; margin-bottom: 12px; }
+    .review-author { font-weight: 600; color: var(--text-sec); font-size: 14px; }
+
+    /* FAQ */
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item { background: var(--bg-white); border-radius: 8px; margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; }
+    .faq-q { padding: 20px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q::after { content: '+'; font-size: 20px; transition: 0.2s; }
+    .faq-item.active .faq-q::after { transform: rotate(45deg); }
+    .faq-a { padding: 0 20px 20px; color: var(--text-sec); display: none; }
+    .faq-item.active .faq-a { display: block; }
+
+    /* FINAL CTA */
+    .final-cta { background: #0F172A; color: #fff; padding: 80px 0; }
+    .final-cta h2 { color: #fff; }
+    .cta-form { background: var(--bg-white); color: var(--text-main); padding: 32px; border-radius: var(--radius); max-width: 600px; margin: 0 auto; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; }
+    .form-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-sec); margin: 12px 0; }
+    .messengers { display: flex; gap: 12px; margin-top: 20px; justify-content: center; flex-wrap: wrap; }
+    .messenger-btn { background: #25D366; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 14px; }
+    .messenger-btn.tg { background: #0088CC; }
+
+    /* FOOTER */
+    footer { background: #020617; color: #94A3B8; padding: 40px 0; font-size: 14px; }
+    .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+    .footer-links a { margin-right: 16px; color: #CBD5E1; }
+
+    /* MOBILE STICKY */
+    .mobile-sticky { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; padding: 12px 16px; box-shadow: 0 -4px 12px rgba(0,0,0,0.15); display: flex; gap: 10px; z-index: 100; display: none; }
+    .mobile-sticky .btn { flex: 1; padding: 12px; font-size: 14px; }
+
+    /* UTILS */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .success-msg { background: #D1FAE5; color: #065F46; padding: 12px; border-radius: 8px; text-align: center; display: none; margin-top: 10px; }
+    .error { border-color: #EF4444 !important; }
+    
+    @media (max-width: 768px) {
+      .hero { padding: 80px 0 60px; }
+      .form-row { grid-template-columns: 1fr; }
+      .mobile-sticky { display: flex; }
+      footer { padding-bottom: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BLOCK 1: HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Мойка фасадов и остекления промышленными альпинистами в Москве и СПб</h1>
+        <p class="sub" style="color:#CBD5E1; text-align:left; margin-bottom:16px;">Без разводов. С гарантией сохранности покрытий. Выезд в день обращения. Страхование ответственности до 100 млн ₽. Допуски по охране труда и промальпу.</p>
+        <div class="hero-badges">
+          <span class="badge">🏢 Работаем с юрлицами</span>
+          <span class="badge">📜 Договор + акты</span>
+          <span class="badge">💳 Постоплата для компаний</span>
+          <span class="badge">🌡️ Работаем от -5°C</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#calc" class="btn btn-accent">📐 Рассчитать стоимость за 2 мин</a>
+          <a href="tel:+74951234567" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.4);">📞 +7 (495) 123-45-67</a>
+        </div>
+        <form class="hero-mini-form" onsubmit="handleForm(event, this)">
+          <input type="tel" placeholder="+7 (___) ___-__-__" required class="phone-mask">
+          <label><input type="checkbox" required> Перезвоните мне в течение 10 мин</label>
+          <button type="submit" class="btn btn-accent" style="width:100%; margin-top:8px;">Жду звонка</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOCK 2: PAINS -->
+  <section class="section">
+    <div class="container">
+      <h2>Почему обычная мойка не работает</h2>
+      <div class="grid grid-2">
+        <div class="card bad"><h3>❌ Разводы и химия разъедают фасад</h3><p>Дешевые средства оставляют налет, повреждают алюминиевые профили и закаленное стекло.</p></div>
+        <div class="card good"><h3>✅ Деминерализованная вода + pH-нейтральная химия</h3><p>0 следов на алюминии и стекле. Бережная очистка, одобренная производителями фасадов.</p></div>
+        <div class="card bad"><h3>❌ Риск падения, нет допусков</h3><p>«Частники» без страховки и журналов инструктажа. При ЧП ответственность ложится на УК/заказчика.</p></div>
+        <div class="card good"><h3>✅ Только штатные альпинисты с действующими удостоверениями</h3><p>Проверка снаряжения каждые 30 дней. Страхование ответственности до 100 млн ₽.</p></div>
+        <div class="card bad"><h3>❌ Простой бизнеса, шум внутри</h3><p>Мойка изнутри или с лесов мешает арендаторам и требует остановки работы.</p></div>
+        <div class="card good"><h3>✅ Работаем снаружи. Ночные/утренние смены</h3><p>Не требуем доступа в помещения. Не нарушаем бизнес-процессы.</p></div>
+      </div>
+      <div class="text-center" style="margin-top:32px;">
+        <button class="btn" onclick="openModal('audit')">🔍 Получить бесплатный аудит фасада</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 3: CALCULATOR -->
+  <section id="calc" class="section" style="background:#fff;">
+    <div class="container">
+      <h2>Рассчитайте стоимость мойки</h2>
+      <div class="calc-box">
+        <div id="step1" class="calc-step active">
+          <h3>1. Тип объекта</h3>
+          <div class="calc-options">
+            <div class="calc-opt" onclick="selectOpt(this)">Бизнес-центр</div>
+            <div class="calc-opt" onclick="selectOpt(this)">ТЦ / ТРК</div>
+            <div class="calc-opt" onclick="selectOpt(this)">ЖК / Частный дом</div>
+            <div class="calc-opt" onclick="selectOpt(this)">Склад / Промзона</div>
+          </div>
+          <button class="btn" onclick="nextStep(2)">Далее →</button>
+        </div>
+        <div id="step2" class="calc-step">
+          <h3>2. Площадь остекления / этажность</h3>
+          <div class="calc-options">
+            <div class="calc-opt" onclick="selectOpt(this)">до 200 м²</div>
+            <div class="calc-opt" onclick="selectOpt(this)">200–500 м²</div>
+            <div class="calc-opt" onclick="selectOpt(this)">500–1000 м²</div>
+            <div class="calc-opt" onclick="selectOpt(this)">> 1000 м²</div>
+          </div>
+          <div class="calc-nav"><button class="btn btn-outline" onclick="nextStep(1)">← Назад</button><button class="btn" onclick="nextStep(3)">Далее →</button></div>
+        </div>
+        <div id="step3" class="calc-step">
+          <h3>3. Тип загрязнения</h3>
+          <div class="calc-options">
+            <div class="calc-opt" onclick="selectOpt(this)">Пыль / Городская грязь</div>
+            <div class="calc-opt" onclick="selectOpt(this)">Птичий помет / Реагенты</div>
+            <div class="calc-opt" onclick="selectOpt(this)">Цемент / Штукатурка</div>
+            <div class="calc-opt" onclick="selectOpt(this)">Комбинированное</div>
+          </div>
+          <div class="calc-nav"><button class="btn btn-outline" onclick="nextStep(2)">← Назад</button><button class="btn" onclick="nextStep(4)">Рассчитать →</button></div>
+        </div>
+        <div id="step4" class="calc-step">
+          <div class="calc-result">
+            Примерная стоимость: <strong id="calcPrice">от 85 до 140 ₽/м²</strong><br>
+            <small style="color:#475569">Включает: выезды, химию, страховку, вывоз отходов, фотоотчет.</small>
+          </div>
+          <form onsubmit="handleForm(event, this)">
+            <input type="text" class="form-input" placeholder="Ваше имя" style="margin-bottom:10px;">
+            <input type="tel" class="form-input phone-mask" placeholder="+7 (___) ___-__-__" required style="margin-bottom:10px;">
+            <select class="form-input" style="margin-bottom:10px;">
+              <option>WhatsApp</option><option>Telegram</option><option>Email</option>
+            </select>
+            <label class="form-check"><input type="checkbox" required> Получить чек-лист «Подготовка объекта» + смету в PDF</label>
+            <button type="submit" class="btn btn-accent" style="width:100%">📩 Получить точный расчет</button>
+          </form>
+          <p style="font-size:12px; color:#64748B; text-align:center; margin-top:8px;">Ответ в течение 1 часа. Без спама.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 4: TRUST -->
+  <section class="section">
+    <div class="container">
+      <h2>Безопасность и допуски</h2>
+      <div class="trust-list">
+        <div class="trust-item"><div class="trust-icon">✓</div> ГОСТ Р 55565-2013</div>
+        <div class="trust-item"><div class="trust-icon">✓</div> Полис до 100 млн ₽</div>
+        <div class="trust-item"><div class="trust-icon">✓</div> Журналы инструктажей</div>
+        <div class="trust-item"><div class="trust-icon">✓</div> Сертификаты Petzl/Camp</div>
+      </div>
+      <p class="text-center" style="max-width:700px; margin:0 auto 24px; color:#475569;">Соответствуем требованиям охраны труда для работ на высоте. Каждая бригада проходит медосмотр и тест на снаряжении перед выездом. Предоставляем полный пакет для тендеров и служб безопасности.</p>
+      <div class="text-center">
+        <button class="btn btn-outline" onclick="openModal('docs')">📁 Запросить пакет документов</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 5: PORTFOLIO -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <h2>Реальные объекты: До и После</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <div class="before-after">
+            <div class="ba-side before"><span class="ba-label">До</span>📷</div>
+            <div class="ba-side after"><span class="ba-label">После</span>✨</div>
+          </div>
+          <div class="portfolio-content">
+            <h3>БЦ «Сколково», 18 этажей</h3>
+            <p>1 200 м² остекления. Удаление строительной пыли. Работа за 2 дня без остановки арендаторов.</p>
+            <button class="btn btn-outline" style="margin-top:10px; width:100%; font-size:14px;" onclick="openModal('calc')">Хочу такой же результат</button>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="before-after">
+            <div class="ba-side before"><span class="ba-label">До</span>📷</div>
+            <div class="ba-side after"><span class="ba-label">После</span>✨</div>
+          </div>
+          <div class="portfolio-content">
+            <h3>ТЦ «Галерея», СПб</h3>
+            <p>850 м² витражей. Удаление реагентов и птичьего помета. Ночная смена.</p>
+            <button class="btn btn-outline" style="margin-top:10px; width:100%; font-size:14px;" onclick="openModal('calc')">Хочу такой же результат</button>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="before-after">
+            <div class="ba-side before"><span class="ba-label">До</span>📷</div>
+            <div class="ba-side after"><span class="ba-label">После</span>✨</div>
+          </div>
+          <div class="portfolio-content">
+            <h3>ЖК «Новые Ватутинки»</h3>
+            <p>Частный сектор, 450 м². Мойка фасадов и кровли. Гарантия 30 дней на разводы.</p>
+            <button class="btn btn-outline" style="margin-top:10px; width:100%; font-size:14px;" onclick="openModal('calc')">Хочу такой же результат</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 6: PROCESS -->
+  <section class="section">
+    <div class="container">
+      <h2>Как мы работаем</h2>
+      <div class="timeline">
+        <div class="step"><div class="step-num">1</div><div><h3>Заявка → ответ за 15 мин</h3><p>Диспетчер + инженер согласуют детали и удобное время.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div><h3>Фотоаудит/выезд → в тот же день</h3><p>Бесплатный осмотр, замер, оценка доступа и загрязнений.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div><h3>Смета + договор → фиксация цены</h3><p>Штрафные санкции за срыв сроков прописаны в договоре.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div><h3>Работы → фотоотчет каждые 2 часа</h3><p>Отправляем статус в WhatsApp/Telegram. Работаем автономно.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div><h3>Приемка → акт + гарантия 30 дней</h3><p>Повторная мойка участка за наш счет при появлении разводов.</p></div></div>
+      </div>
+      <div class="text-center" style="margin-top:24px;">
+        <button class="btn" onclick="openModal('contract')">📝 Начать работу по договору</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 7: ADVANTAGES -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <h2>Почему выбирают нас</h2>
+      <div class="adv-grid">
+        <div class="adv-card"><div>👥</div><strong>Своя бригада 14 чел</strong><p>Не передаем подрядчикам. Полный контроль качества.</p></div>
+        <div class="adv-card"><div>🌡️</div><strong>Работаем от -5°C</strong><p>Зимние составы без следов и ледяных корок.</p></div>
+        <div class="adv-card"><div>🚗</div><strong>Выезд в день обращения</strong><p>По Москве и СПб. Логистика без задержек.</p></div>
+        <div class="adv-card"><div>💳</div><strong>Постоплата 100% для юрлиц</strong><p>Платите после подписания акта и проверки.</p></div>
+        <div class="adv-card"><div>💧</div><strong>Деминерализованная вода</strong><p>Экономия 30% химии, 0 разводов на стекле.</p></div>
+        <div class="adv-card"><div>📍</div><strong>2 базы (МСК/СПб)</strong><p>Оперативный выезд, резервное снаряжение на месте.</p></div>
+      </div>
+      <div class="text-center" style="margin-top:24px;">
+        <form onsubmit="handleForm(event, this)" style="max-width:400px; margin:0 auto; display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="tel" class="form-input phone-mask" placeholder="Телефон" required>
+          <label style="flex:1; font-size:13px; color:#475569;"><input type="checkbox" required> Консультация инженера</label>
+          <button type="submit" class="btn btn-outline">Перезвоните</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 8: REVIEWS -->
+  <section class="section">
+    <div class="container">
+      <h2>Отзывы клиентов</h2>
+      <div class="review-grid">
+        <div class="review-card">
+          <p>«Снизили жалобы арендаторов на 92% за первый квартал. Работают чисто, ночью, без шума внутри. Закрывающие документы приходят день в день.»</p>
+          <div class="review-author">Алексей В., управляющий БЦ «Парус»</div>
+        </div>
+        <div class="review-card">
+          <p>«Экономия бюджета УК на 14% за счет перехода на квартальный контракт. Фиксированная смета, никаких скрытых платежей за высоту.»</p>
+          <div class="review-author">Марина С., главный инженер УК «Север»</div>
+        </div>
+        <div class="review-card">
+          <p>«Выезжали в декабре, при -4°C. Зимний состав сработал отлично. Никаких следов на алюминии. Рекомендуем.»</p>
+          <div class="review-author">Игорь Д., директор ТРК «Арена»</div>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top:24px;">
+        <button class="btn" onclick="openModal('calc')">🏆 Стать следующим в нашем портфолио</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 9: FAQ -->
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <h2>Частые вопросы</h2>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Что если пойдет дождь/снег во время работ?</div><div class="faq-a">Перенос без штрафов. Работаем по точному прогнозу. Готовность выехать в ближайшее окно без доплат.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Нужно ли нам отключать кондиционеры/готовить фасад?</div><div class="faq-a">Нет. Работаем автономно. Единственное требование — доступ к воде на техэтаже (если нет, привозим свою систему).</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Как гарантируете сохранность стекла/фасада?</div><div class="faq-a">Страховка, договор с материальной ответственностью, фотофиксация «до» старта. Используем только pH-нейтральные составы.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Работаете ли в выходные/ночью?</div><div class="faq-a">Да. Без наценки до +15% для плановых контрактов. Ночные смены согласуем заранее.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Есть ли скрытые платежи за высоту/сложный доступ?</div><div class="faq-a">Нет. Всё включено в смету после аудита. Цена фиксируется в договоре.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Какие документы получаете после работ?</div><div class="faq-a">Акт выполненных работ, фотоотчет, гарантийное письмо, закрывающие документы для бухгалтерии (УПД, счет-фактура).</div></div>
+      </div>
+      <div class="text-center" style="margin-top:24px;">
+        <form onsubmit="handleForm(event, this)" style="max-width:500px; margin:0 auto;">
+          <input type="tel" class="form-input phone-mask" placeholder="Ваш телефон" required>
+          <input type="text" class="form-input" placeholder="Ваш вопрос" style="margin:10px 0;">
+          <button type="submit" class="btn btn-outline" style="width:100%">Задать вопрос инженеру</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 10: FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Готовы к чистому фасаду без рисков и простоев?</h2>
+      <p class="sub" style="color:#CBD5E1;">Получите коммерческое предложение и фиксированную смету за 1 час</p>
+      <form class="cta-form" onsubmit="handleForm(event, this)">
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="Ваше имя" required>
+          <input type="tel" class="form-input phone-mask" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="form-row">
+          <select class="form-input"><option>Москва</option><option>Санкт-Петербург</option></select>
+          <select class="form-input"><option>БЦ/Офис</option><option>ТЦ</option><option>ЖК/Дом</option><option>Склад/Пром</option></select>
+        </div>
+        <textarea class="form-input" rows="3" placeholder="Адрес объекта или комментарий" style="margin-bottom:12px;"></textarea>
+        <label class="form-check"><input type="checkbox" required> Согласен на обработку персональных данных (152-ФЗ)</label>
+        <button type="submit" class="btn btn-accent" style="width:100%; font-size:18px;">📄 Получить коммерческое предложение за 1 час</button>
+        <div class="success-msg" style="display:none;">✅ Заявка принята. Инженер свяжется с вами в течение 15 минут.</div>
+      </form>
+      <div class="messengers">
+        <a href="#" class="messenger-btn">💬 Написать в WhatsApp</a>
+        <a href="#" class="messenger-btn tg">✈️ Написать в Telegram</a>
+      </div>
+      <p style="text-align:center; color:#94A3B8; font-size:13px; margin-top:16px;">Диспетчер работает с 08:00 до 22:00. Заявки вне часов обрабатываются в приоритетном порядке с 08:00.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK 11: FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div><strong style="color:#fff; font-size:18px;">🏔️ ПРОМФАСАД</strong><br>Мойка фасадов и остекления альпинистами<br><small>ИНН 7712345678 | ОГРН 1234567890123</small></div>
+      <div class="footer-links">
+        <a href="#calc">Калькулятор</a>
+        <a href="#">О компании</a>
+        <a href="#">Документы</a>
+        <a href="#">Контакты</a>
+      </div>
+      <div><a href="tel:+74951234567" style="color:#fff;">+7 (495) 123-45-67</a><br><a href="tel:+78121234567">+7 (812) 123-45-67</a><br>info@promfasad.ru</div>
+      <div style="width:100%; margin-top:20px; font-size:12px; color:#64748B;">© 2026 ПромФасад. Все права защищены. <a href="#" style="text-decoration:underline;">Политика конфиденциальности</a></div>
+    </div>
+  </footer>
+
+  <!-- MOBILE STICKY -->
+  <div class="mobile-sticky">
+    <a href="tel:+74951234567" class="btn btn-accent">📞 Позвонить</a>
+    <a href="#" class="btn btn-outline" style="color:var(--text-main); border-color:var(--border);">💬 WhatsApp</a>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:200;">
+    <div style="background:#fff; padding:32px; border-radius:16px; max-width:420px; width:90%; position:relative;">
+      <button onclick="closeModal()" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+      <h3 id="modal-title" style="margin-bottom:16px;">Оставить заявку</h3>
+      <form onsubmit="handleForm(event, this)">
+        <input type="text" class="form-input" placeholder="Имя" required style="margin-bottom:10px;">
+        <input type="tel" class="form-input phone-mask" placeholder="+7 (___) ___-__-__" required style="margin-bottom:10px;">
+        <input type="text" class="form-input" placeholder="Адрес/Объект" style="margin-bottom:16px;">
+        <button type="submit" class="btn btn-accent" style="width:100%">Отправить</button>
+        <div class="success-msg" style="display:none;">✅ Спасибо. Мы свяжемся в течение 10 мин.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // 1. PHONE MASK
+    document.querySelectorAll('.phone-mask').forEach(input => {
+      input.addEventListener('input', e => {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        if (!x) return;
+        e.target.value = !x[2] ? x[1] : `+7 (${x[2]}) ${x[3] || ''} ${x[4] || ''} ${x[5] || ''}`;
+      });
+    });
+
+    // 2. CALCULATOR LOGIC
+    let calcState = {};
+    function selectOpt(el) {
+      el.parentElement.querySelectorAll('.calc-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      calcState[`step${el.closest('.calc-step').id.replace('step','')}`] = el.textContent;
+    }
+    function nextStep(n) {
+      document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step${n}`).classList.add('active');
+      if(n===4) {
+        // Simple mock pricing logic
+        const base = 85 + Math.floor(Math.random()*55);
+        document.getElementById('calcPrice').textContent = `от ${base} до ${base+45} ₽/м²`;
+      }
+    }
+
+    // 3. FAQ ACCORDION
+    function toggleFaq(el) {
+      el.parentElement.classList.toggle('active');
+    }
+
+    // 4. FORM HANDLER
+    function handleForm(e, form) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const success = form.querySelector('.success-msg');
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+      
+      setTimeout(() => {
+        btn.style.display = 'none';
+        form.querySelectorAll('input, select, textarea').forEach(i => i.disabled = true);
+        if(success) success.style.display = 'block';
+        else {
+          alert('Спасибо! Инженер перезвонит в течение 12 минут.');
+          form.reset();
+          btn.disabled = false;
+          btn.textContent = 'Отправить';
+          form.querySelectorAll('input, select, textarea').forEach(i => i.disabled = false);
+        }
+      }, 800);
+    }
+
+    // 5. MODAL
+    function openModal(type) {
+      document.getElementById('modal').style.display = 'flex';
+      const titles = { audit: 'Заказать бесплатный аудит', docs: 'Запросить пакет документов', contract: 'Начать работу по договору', calc: 'Рассчитать мойку для объекта' };
+      document.getElementById('modal-title').textContent = titles[type] || 'Оставить заявку';
+    }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    document.getElementById('modal').addEventListener('click', e => { if(e.target.id==='modal') closeModal(); });
+
+    // 6. SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // 7. INTERSECTION OBSERVER (Light Animations)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.card, .step, .review-card, .portfolio-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s, transform 0.5s';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
